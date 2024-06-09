@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>주문확인</title>
+  <link rel="stylesheet" href="css/order.css"/>
+</head>
+<body>
+<header>
+  <div style="padding-top:14px;">주문확인</div>
+</header>
+<div class="center">
+  <!--상품정보-->
+  <div style="margin-top:10px;">
+    <table style="border-bottom : 1px solid lightgrey;">
+      <td>
+      <th><img src="images/moa.png" style="width:150px;"/></th>
+      <th id="pname">상품명</th>
+      <th id="price">가격:개수</th>
+      </td>
+    </table></div>
+
+  <div style="font-size:18px; font-weight:bold; margin:20px 10px 0 0;">주문자 정보</div>
+  <table style="margin:20px 0px 0px 50px;">
+    <tr>
+      <td class="info">이름</td>
+      <td><input type="text"/></td>
+    </tr>
+    <tr>
+      <td class="info">전화번호</td>
+      <td><input type="text"/></td>
+    </tr>
+    <tr>
+      <td class="info">주소</td>
+      <td><input type="textarea" style="padding-bottom:50px;"/></td>
+    </tr>
+  </table>
+  <!-- 총합계 -->
+  <div class="all">
+    <ul>
+      <li class="count">총 개수</li>
+      <li class="sum">총 합계</li>
+    </ul>
+  </div>
+  <!-- button -->
+  <div class="orderbtn">
+    <button id="order">취소</button>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+*{
+    padding : 0px;
+    margin : 0px;
+    outline:none;
+}
+
+/* 헤더 */
+header {
+    width : 100%;
+    height : 50px;
+    text-align : center;
+    font-weight:bold;
+    color : white;
+    background-color : #2d3953;
+}
+
+.center {
+    width:500px;
+    height:100%;
+    margin:0 auto;
+    margin-top:20px;
+}
+
+/* 장바구니 상품 */
+#pname {
+    width:200px;
+    text-align : left;
+    padding-bottom:80px;
+}
+
+#price {
+    width:130px;
+    text-align:right;
+    padding-top:60px;
+}
+
+/* 버튼 */
+.orderbtn {
+    position : fixed;
+    bottom:0px;
+    margin-bottom:10px;
+}
+
+#order {
+    width: 500px;
+    height : 40px;
+    background-color : #FEC132;
+    color : white;
+    border:0px solid;
+    font-weight : bold;
+    border-radius : 15px;
+}

@@ -1,0 +1,33 @@
+*{
+    padding : 0px;
+    margin : 0px;
+    outline:none;
+}
+
+
+.center {
+    width:500px;
+    height:100%;
+    margin:0 auto;
+    margin-top:200px;
+    text-align:center;
+    font-size:14px;
+}
+
+input {
+    border : 1px solid lightgrey;
+    border-radius : 10px;
+    padding:5px;
+    width : 210px;
+    margin-bottom:10px;
+    text-align:center;
+}
+
+button {
+    border-radius:20px;
+    border : 0px;
+    width:310px;
+    height:40px;
+    font-weight:bold;
+    margin-top:10px;
+}
