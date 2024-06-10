@@ -16,17 +16,25 @@
 
 input {
     border : 1px solid lightgrey;
-    border-radius : 10px;
+    border-radius : 20px;
     padding:5px;
-    width : 210px;
+    width : 280px;
     margin-bottom:10px;
-    text-align:center;
 }
 
 button {
     border-radius:20px;
     border : 0px;
     width:310px;
+    height:40px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.joinbtn{
+    border-radius:20px;
+    border : 0px;
+    width:400px;
     height:40px;
     font-weight:bold;
     margin-top:10px;
