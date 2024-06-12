@@ -2,7 +2,8 @@ package moacloth.moashop.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import moacloth.moashop.controller.AdminForm;
+import moacloth.moashop.controller.admin.AdminForm;
+import moacloth.moashop.controller.admin.AdminLoginForm;
 import moacloth.moashop.domain.Admin;
 import moacloth.moashop.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,10 +32,20 @@ public class AdminService {
                 .admin_email(admin.getAdmin_email())
                 .build();
 
-
         validateDuplicateAdmin(buildadmin);
         adminRepository.save(buildadmin);
         return admin.getAdmin_id();
+    }
+
+    @Transactional
+    public Admin login(AdminLoginForm adminLoginForm) {
+        Admin loginAdmin = Admin.builder()
+                .admin_id(adminLoginForm.getAdmin_id())
+                .admin_pw(adminLoginForm.getAdmin_pw())
+                .build();
+
+        Optional<Admin> loginbyAdmin = adminRepository.findByAdmin(loginAdmin.getAdmin_id(), loginAdmin.getAdmin_pw());
+        return loginbyAdmin.get();
     }
 
     private void validateDuplicateAdmin(Admin admin) {
@@ -48,6 +60,24 @@ public class AdminService {
             if (!findAdmin.isEmpty()) {
                 throw new IllegalStateException("이미 존재하는 회원입니다.");
             }
+        }
+    }
+
+    public int checkId(String admin_id) {
+        List<Admin> findAdmin = adminRepository.findById(admin_id);
+        if (findAdmin.isEmpty()) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public int checkName(String admin_name) {
+        List<Admin> findbyName = adminRepository.findByName(admin_name);
+        if (findbyName.isEmpty()) {
+            return 0;
+        } else {
+            return 1;
         }
     }
 }

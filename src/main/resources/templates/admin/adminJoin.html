@@ -3,50 +3,134 @@
 <head>
   <meta charset="UTF-8">
   <title>회원가입</title>
-  <link rel="stylesheet" href="/../css/join.css"/>
+  <link rel="stylesheet" href="/../css/adminJoin.css"/>
   <style>
-    .error-class {
-      color:red;
-      border-color:red;
-      font-size:12px;
-      margin-bottom:5px;
-      text-align : center;
-    }
+
   </style>
 </head>
 <body>
 <div class="center">
-  <img src="/images/moa_black.png" style="width:250px; margin-bottom:-50px;"/>
+  <img src="/../images/moa_black.png" style="width:250px; margin-bottom:-50px;"/>
   <div style="margin-bottom:20px; font-weight:bold;">관리자 회원가입</div>
 <!--회원가입 폼-->
   <form th:action="@{/admin/join}" th:object="${adminForm}" method="post">
-  <div><span>사업자아이디</span>
-    <input type="text" th:field="*{admin_id}" placeholder="로그인에 사용할 아이디를 입력해주세요." style="margin-left:6px;"
-            th:errorclass="error-class" required/>
+  <div><span style="text-align:right; font-weight:bold;">사업자아이디</span>
+    <input type="text" th:field="*{admin_id}" placeholder="로그인에 사용할 아이디를 입력해주세요."
+            th:errorclass="error-class"/>
+    <button type="button" id="aidCheck" class="checking">중복 확인</button>
+    <div><p id="result_checkId"></p></div>
     <div class="error-class" th:errors="*{admin_id}"></div>
   </div>
-  <div><span>비밀번호</span>
-    <input type="password" th:field="*{admin_pw}" placeholder="로그인에 사용할 비밀번호를 입력해주세요." style="margin-left:36px;" required/>
+  <div><span style="text-align:right; font-weight:bold;">비밀번호</span>
+    <input type="password" th:field="*{admin_pw}" placeholder="로그인에 사용할 비밀번호를 입력해주세요." style="margin-right:55px;"
+           th:errorclass="error-class"/>
     <div class="error-class" th:errors="*{admin_pw}"></div>
   </div>
-  <div><span>사업자번호</span>
-    <input type="text" th:field="*{admin_num}" placeholder="사업자 번호를 입력해주세요." style="margin-left:20px;" required/>
+  <div><span style="text-align:right; font-weight:bold;">사업자번호</span>
+    <input type="text" th:field="*{admin_num}" placeholder="사업자 번호를 입력해주세요." style="margin:0 70px 0px 0;"
+           th:errorclass="error-class"/>
     <div class="error-class" th:errors="*{admin_num}"></div>
   </div>
-  <div><span>사업자명</span>
-    <input type="text" th:field="*{admin_name}" placeholder="사업명을 입력을해주세요." style="margin-left:37px;" required/>
+  <div><span style="text-align:right; font-weight:bold; margin-left:25px;">사업자명</span>
+    <input type="text" th:field="*{admin_name}" placeholder="사업명을 입력을해주세요."
+           th:errorclass="error-class"/>
+    <button type="button" id="nameCheck" class="checking">중복 확인</button>
+    <div><p id="result_checkName"></p></div>
     <div class="error-class" th:errors="*{admin_name}"></div>
   </div>
-  <div><span>전화번호</span>
-    <input type="text" th:field="*{admin_phone}" placeholder="전화번호를 입력해주세요." style="margin-left:37px;" required/>
+  <div><span style="text-align:right; font-weight:bold;">전화번호</span>
+    <input type="text" th:field="*{admin_phone}" placeholder="전화번호를 입력해주세요." style="margin:0 55px 0px 0;"
+           oninput="phoneHyphen(this)"  pattern="010-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+           th:errorclass="error-class"/>
     <div class="error-class" th:errors="*{admin_phone}"></div>
   </div>
-  <div><span>이메일</span>
-    <input type="text" th:field="*{admin_email}" placeholder="이메일을 입력해주세요." style="margin-left:54px;" required/>
+  <div><span style="text-align:right; font-weight:bold;">이메일</span>
+    <input type="text" th:field="*{admin_email}" placeholder="이메일을 입력해주세요." style="margin:10px 42px 0px 0;"
+           th:errorclass="error-class"/>
     <div class="error-class" th:errors="*{admin_email}"></div>
   </div>
     <input type="submit" class="joinbtn" value="회원가입"/>
   </form>
 </div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+    function phoneHyphen(input) {
+        // 숫자만 남기고 모든 문자 제거
+        var phoneNumber = input.value.replace(/[^\d]/g, "");
+
+        // 전화번호 형식에 맞게 하이푼 추가
+        if (phoneNumber.length >= 4 && phoneNumber.length <= 7) {
+            input.value = phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3);
+        } else if (phoneNumber.length >= 8) {
+            input.value = phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3, 7) + "-" + phoneNumber.slice(7);
+        }
+    }
+
+<!--사업자아이디 확인-->
+  $("#aidCheck").click(function() {
+    let aid = $('input[name="admin_id"]').val();
+
+    $.ajax({
+      url : "checkAdminId",
+      type : "post",
+      data : {admin_id : aid},
+      dataType : 'json',
+      success : function(result) {
+        if(result==0){
+          if(aid == ""){
+              $('#result_checkId').html('아이디를 입력해주세요.');
+              $('#result_checkId').css('color','blue');
+              $('#result_checkId').css('font-size','12px');
+          } else{
+            $('#result_checkId').html('사용할 수 있는 아이디입니다.');
+            $('#result_checkId').css('color','green');
+            $('#result_checkId').css('font-size','12px');
+            $('#result_checkId').attr('readonly', true);
+           }
+        } else {
+          $('#result_checkId').html('이미 사용중인 아이디입니다.');
+          $('#result_checkId').css('color','red');
+          $('#result_checkId').css('font-size','12px');
+          $('#result_checkId').attr('readonly', false);
+          }
+      }, error : function(error) {
+        alert(error);
+      }
+    })
+  });
+
+  <!--사업자명 확인-->
+  $("#nameCheck").click(function() {
+    let aname = $('input[name="admin_name"]').val();
+
+    $.ajax({
+      url : "checkAdminName",
+      type : "post",
+      data : {admin_name : aname},
+      dataType : 'json',
+      success : function(nameresult) {
+        if(nameresult==0){
+          if(aname == "") {
+                $('#result_checkName').html('사업자 명을 입력해주세요.');
+                $('#result_checkName').css('color','blue');
+                $('#result_checkName').css('font-size','12px');
+          } else{
+                $('#result_checkName').html('사용할 수 있는 사업자명입니다.');
+                $('#result_checkName').css('color','green');
+                $('#result_checkName').css('font-size','12px');
+                $('#result_checkName').attr('readonly', true);
+          }
+        } else {
+          $('#result_checkName').html('이미 사용중인 사업자명입니다.');
+          $('#result_checkName').css('color','red');
+          $('#result_checkName').css('font-size','12px');
+          $('#result_checkName').attr('readonly', false);
+          }
+      }, error : function(error) {
+        alert(error);
+      }
+    })
+  });
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package moacloth.moashop.controller;
+package moacloth.moashop.controller.admin;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -25,6 +25,5 @@ public class AdminForm {
 
     @NotEmpty(message = "이메일은 필수입니다.")
     private String admin_email;
-
 
 }

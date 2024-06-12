@@ -25,11 +25,5 @@ public class HomeController {
         log.info("main controller");
         return "admin/adminLogin";
     }
-
-/*    @RequestMapping("/adminJoin")
-    public String adminJoin() {
-        log.info("main controller");
-        return "admin/adminJoin";
-    }*/
 }
 

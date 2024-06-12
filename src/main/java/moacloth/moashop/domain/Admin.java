@@ -41,4 +41,7 @@ public class Admin {
         this.admin_email = admin_email;
     }
 
+    public void checkAdminId() {
+
+    }
 }
