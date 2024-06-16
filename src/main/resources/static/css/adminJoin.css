@@ -1,0 +1,60 @@
+*{
+    padding : 0px;
+    margin : 0px;
+    outline:none;
+}
+
+
+.center {
+    width:500px;
+    height:100%;
+    margin:0 auto;
+    margin-top:200px;
+    text-align:center;
+    font-size:14px;
+}
+
+.error-class {
+      color:red;
+      border-color:red;
+      font-size:12px;
+      margin-bottom:5px;
+      text-align : center;
+ }
+
+.checking {
+      width:75px;
+      height:30px;
+      font-weight:bold;
+      font-size:12px;
+      border : 0px;
+      border-radius:50px;
+      float:fixed;
+}
+
+input {
+    border : 1px solid lightgrey;
+    border-radius : 20px;
+    padding:5px;
+    height:20px;
+    width : 280px;
+    margin-bottom:10px;
+}
+
+button {
+    border-radius:20px;
+    border : 0px;
+    width:310px;
+    height:40px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.joinbtn{
+    border-radius:20px;
+    border : 0px;
+    width:400px;
+    height:40px;
+    font-weight:bold;
+    margin-top:10px;
+}
