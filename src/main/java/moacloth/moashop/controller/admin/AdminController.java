@@ -67,6 +67,6 @@ public class AdminController {
 
         adminService.login(adminLoginForm);
         log.info("로그인 성공!");
-        return "admin/confirmProduct";
+        return "redirect:/admin/confirmProduct";
     }
 }
