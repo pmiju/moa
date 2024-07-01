@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>상품추가</title>
@@ -7,16 +7,22 @@
 </head>
 <body>
 <div class="center">
-    <form>
+    <form th:action="@{/product/add}">
         <img id="preview" style="width:500px;"/>
         <input type="file" accept="image/*" style="margin-left:20px;" onchange="readURL(this)"/>
-        <div id="pname">상품명</div>
-        <div id="pprice">가격</div>
+        <div id="pname">
+            <input type="text" placeholder="상품명을 입력해주세요.">
+        </div>
+        <div id="pprice">
+            <input type="text" placeholder="상품가격을 입력해주세요.">
+        </div>
         <hr>
+        <div id="pinfo">
         <input type="file" style="margin: 10px 0px 0px 20px;">
-        <div id="pinfo">상세설명</div>
+            <input type="text" placeholder="상품설명을 입력해주세요.">
+        </div>
         <div class="uploadBtn">
-            <button id="upload">업로드</button>
+            <input type="submit" id="upload" value="업로드"/>
         </div>
     </form>
 </div>

@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 @Table(name="admintbl")
