@@ -36,7 +36,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/admin/join")
-    public String joinForm(@Valid AdminForm form, BindingResult result) {
+    public String joinForm(@Valid AdminForm adminForm, BindingResult result) {
         log.info("회원가입 controller 로직 처리 시작");
         if (result.hasErrors()) {
             log.info("실패여");
@@ -44,7 +44,7 @@ public class AdminController {
             return "admin/adminJoin";
         }
 
-        adminService.join(form);
+        adminService.join(adminForm);
         log.info("사업자 회원가입 완료");
         return "redirect:/adminLogin";
     }

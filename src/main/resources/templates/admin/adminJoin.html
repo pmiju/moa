@@ -85,13 +85,11 @@
             $('#result_checkId').html('사용할 수 있는 아이디입니다.');
             $('#result_checkId').css('color','green');
             $('#result_checkId').css('font-size','12px');
-            $('#result_checkId').attr('readonly', true);
            }
         } else {
           $('#result_checkId').html('이미 사용중인 아이디입니다.');
           $('#result_checkId').css('color','red');
           $('#result_checkId').css('font-size','12px');
-          $('#result_checkId').attr('readonly', false);
           }
       }, error : function(error) {
         alert(error);
@@ -118,13 +116,11 @@
                 $('#result_checkName').html('사용할 수 있는 사업자명입니다.');
                 $('#result_checkName').css('color','green');
                 $('#result_checkName').css('font-size','12px');
-                $('#result_checkName').attr('readonly', true);
           }
         } else {
           $('#result_checkName').html('이미 사용중인 사업자명입니다.');
           $('#result_checkName').css('color','red');
           $('#result_checkName').css('font-size','12px');
-          $('#result_checkName').attr('readonly', false);
           }
       }, error : function(error) {
         alert(error);
