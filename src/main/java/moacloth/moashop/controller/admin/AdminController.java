@@ -3,6 +3,7 @@ package moacloth.moashop.controller.admin;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import moacloth.moashop.domain.Admin;
 import moacloth.moashop.service.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/admin/join")
-    public String joinForm(@Valid AdminForm adminForm, BindingResult result) {
+    public String joinForm(@ModelAttribute @Valid AdminForm adminForm, BindingResult result) {
         log.info("회원가입 controller 로직 처리 시작");
         if (result.hasErrors()) {
             log.info("실패여");
@@ -44,7 +45,16 @@ public class AdminController {
             return "admin/adminJoin";
         }
 
-        adminService.join(adminForm);
+        Admin admin = new Admin(
+                adminForm.getAdmin_id(),
+                adminForm.getAdmin_pw(),
+                adminForm.getAdmin_num(),
+                adminForm.getAdmin_name(),
+                adminForm.getAdmin_phone(),
+                adminForm.getAdmin_email()
+        );
+
+        adminService.join(admin);
         log.info("사업자 회원가입 완료");
         return "redirect:/adminLogin";
     }
@@ -65,7 +75,7 @@ public class AdminController {
             return "admin/adminLogin";
         }
 
-        adminService.login(adminLoginForm);
+        //adminService.login(adminLoginForm);
         log.info("로그인 성공!");
         return "redirect:/confirmProduct";
     }

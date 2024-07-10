@@ -3,6 +3,8 @@ package moacloth.moashop.config;
 import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,10 +25,20 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
                 .formLogin(formLogin->formLogin
-                        .loginPage("/admin/login").defaultSuccessUrl("/admin/confirmProduct", true)
+                        .loginPage("/adminLogin")
+                        .defaultSuccessUrl("/confirmProduct", true)
+                        .failureUrl("/adminLogin?error=true")
+                        .usernameParameter("admin_id")
+                        .passwordParameter("admin_pw")
+                        .loginProcessingUrl("/admin/login")
                 );
 
         return http.build();
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     public BCryptPasswordEncoder passwordEncoder() {

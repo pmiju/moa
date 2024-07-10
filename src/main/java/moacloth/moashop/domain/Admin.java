@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @Entity
@@ -40,7 +41,15 @@ public class Admin {
         this.admin_email = admin_email;
     }
 
-    public void checkAdminId() {
+    @Builder
+    public Admin(String admin_id, String admin_pw) {
+        this.admin_id = admin_id;
+        this.admin_pw = admin_pw;
+    }
 
+
+    public Admin encodePassword(PasswordEncoder passwordEncoder) {
+        this.admin_pw = passwordEncoder.encode(this.admin_pw);
+        return this;
     }
 }

@@ -49,7 +49,7 @@
            th:errorclass="error-class"/>
     <div class="error-class" th:errors="*{admin_email}"></div>
   </div>
-    <input type="submit" class="joinbtn" value="회원가입"/>
+    <button type="submit" class="joinbtn">회원가입</button>
   </form>
 </div>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -58,7 +58,7 @@
         // 숫자만 남기고 모든 문자 제거
         var phoneNumber = input.value.replace(/[^\d]/g, "");
 
-        // 전화번호 형식에 맞게 하이푼 추가
+        // 전화번호 형식에 맞게 하이픈 추가
         if (phoneNumber.length >= 4 && phoneNumber.length <= 7) {
             input.value = phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3);
         } else if (phoneNumber.length >= 8) {

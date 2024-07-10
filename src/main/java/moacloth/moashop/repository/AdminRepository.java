@@ -20,10 +20,10 @@ public class AdminRepository {
         em.persist(admin);
     }
 
-/*    public Admin findOne(String admin_id) {
+    public Admin findOne(String admin_id) {
 
         return em.find(Admin.class, admin_id);
-    }*/
+    }
 
     public List<Admin> findById(String admin_id) {
         return em.createQuery("select a from Admin a where a.admin_id = :admin_id",

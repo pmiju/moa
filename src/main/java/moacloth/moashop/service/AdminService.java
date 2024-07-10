@@ -7,9 +7,13 @@ import moacloth.moashop.controller.admin.AdminLoginForm;
 import moacloth.moashop.domain.Admin;
 import moacloth.moashop.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,12 +21,12 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Slf4j
-public class AdminService {
+public class AdminService{
     @Autowired
     AdminRepository adminRepository;
 
     @Transactional
-    public String join(AdminForm admin) {
+    public String join(Admin admin) {
         Admin buildadmin = Admin.builder()
                 .admin_id(admin.getAdmin_id())
                 .admin_pw(admin.getAdmin_pw())
