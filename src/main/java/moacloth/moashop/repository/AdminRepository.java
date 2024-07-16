@@ -5,6 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import moacloth.moashop.domain.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class AdminRepository {
     @PersistenceContext
     private EntityManager em;
 
+    private final PasswordEncoder passwordEncoder;
+
     public void save(Admin admin) {
         em.persist(admin);
     }
@@ -23,6 +26,12 @@ public class AdminRepository {
     public Admin findOne(String admin_id) {
 
         return em.find(Admin.class, admin_id);
+    }
+    public Admin login(String admin_id) {
+        return em.createQuery("select a from Admin a where a.admin_id = :admin_id",
+                        Admin.class)
+                .setParameter("admin_id", admin_id)
+                .getSingleResult();
     }
 
     public List<Admin> findById(String admin_id) {
@@ -47,5 +56,17 @@ public class AdminRepository {
                 .getResultList()
                 .stream().findAny();
     }
+
+/*    public Optional<Admin> login(String admin_id, String admin_pw) {
+        Admin findAdmin = em.createQuery("select a from Admin a where a.admin_id = :admin_id",
+                        Admin.class)
+                .setParameter("admin_id", admin_id)
+                .getSingleResult();
+        if(passwordEncoder.matches(admin_pw, findAdmin.getAdmin_pw()) == true){
+            return Optional.of(findAdmin);
+        } else {
+            return Optional.empty();
+        }
+    }*/
 
 }

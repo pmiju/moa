@@ -1,21 +1,34 @@
 package moacloth.moashop.config;
 
 import jakarta.servlet.DispatcherType;
+import moacloth.moashop.config.auth.PrincipalDetailsService;
+import moacloth.moashop.config.handler.CustomAuthFailureHandler;
+import moacloth.moashop.config.handler.LoginSuccessHandler;
+import moacloth.moashop.repository.AdminRepository;
+import moacloth.moashop.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
+import java.beans.Encoder;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig {
+public class SecurityConfig{
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -24,13 +37,14 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .anyRequest().permitAll()
                 )
-                .formLogin(formLogin->formLogin
+                .formLogin(formLogin -> formLogin
                         .loginPage("/adminLogin")
                         .defaultSuccessUrl("/confirmProduct", true)
-                        .failureUrl("/adminLogin?error=true")
+                        .failureUrl("/adminLogin?error")
                         .usernameParameter("admin_id")
                         .passwordParameter("admin_pw")
                         .loginProcessingUrl("/admin/login")
+                        .successHandler(new LoginSuccessHandler())
                 );
 
         return http.build();
@@ -41,7 +55,9 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

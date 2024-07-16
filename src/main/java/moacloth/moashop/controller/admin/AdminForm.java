@@ -3,6 +3,7 @@ package moacloth.moashop.controller.admin;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+//DTO
 @Getter
 @Setter
 @NoArgsConstructor

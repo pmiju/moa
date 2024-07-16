@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +25,13 @@ import java.util.Optional;
 public class AdminService{
     @Autowired
     AdminRepository adminRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
     public String join(Admin admin) {
         Admin buildadmin = Admin.builder()
                 .admin_id(admin.getAdmin_id())
-                .admin_pw(admin.getAdmin_pw())
+                .admin_pw(passwordEncoder.encode(admin.getAdmin_pw()))
                 .admin_num(admin.getAdmin_num())
                 .admin_name(admin.getAdmin_name())
                 .admin_phone(admin.getAdmin_phone())

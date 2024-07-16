@@ -61,8 +61,12 @@ public class AdminController {
 
     /* 사업자 로그인 */
     @GetMapping(value = "/adminLogin")
-    public String createLogin(Model model) {
+    public String createLogin(Model model,
+                              @RequestParam(value = "error",required = false)String error,
+                              @RequestParam(value="exception", required = false)String exception) {
         model.addAttribute("adminLoginForm", new AdminLoginForm());
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "admin/adminLogin";
     }
 
@@ -74,8 +78,7 @@ public class AdminController {
             log.info("error = {}", result);
             return "admin/adminLogin";
         }
-
-        //adminService.login(adminLoginForm);
+        adminService.login(adminLoginForm);
         log.info("로그인 성공!");
         return "redirect:/confirmProduct";
     }

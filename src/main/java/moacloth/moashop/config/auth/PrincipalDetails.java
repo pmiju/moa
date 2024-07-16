@@ -36,12 +36,12 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return admin.getAdmin_pw();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return admin.getAdmin_id();
     }
 
     @Override
